@@ -36,4 +36,12 @@ public class Company implements Serializable{
     public String getLastDateSimpleFormat() {
         return simpleDateFormat.format(lastDate);
     }
+
+    @Override
+    public String toString() {
+        return "*** "+name+" *** information:\r\n"+
+                url+"\r\n" +
+                mail+"\r\n" +
+                getLastDateSimpleFormat();
+    }
 }
