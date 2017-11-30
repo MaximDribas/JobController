@@ -6,27 +6,24 @@ import java.io.*;
  */
 
 public class Main {
-    private static CompaniesDatabase companiesDatabase=new CompaniesDatabase();
-    private static boolean stop;
-
-    public Main() throws Exception {
-    }
+    private Storage storage = new MapStorage();
+    private boolean stop;
 
     public static void main(String[] args) throws Exception {
-        companiesDatabase.load();
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-        while (!stop) {
+        Main main = new Main();
+        while (!main.stop) {
             try {
-                menu(reader);
+                main.menu(reader);
             } catch (NoCompanyException e) {
-                System.out.println(e.getMessage());
+                System.out.println("There is no such Company - "+e.getMessage()+"! Try again!");
             } catch (Exception e) {
                 System.out.println("Input Error!");
             }
         }
     }
 
-    private static void menu(BufferedReader reader) throws Exception {
+    private void menu(BufferedReader reader) throws Exception {
         System.out.println();
         System.out.println("Click: 1 - create the Company, 2 - print all Companies, 3 - print Company by name, 4 - remove Company, 0 - Exit the program");
 
@@ -34,16 +31,16 @@ public class Main {
 
         switch (number){
             case 1:
-                companiesDatabase.createCompany();
+                createCompany(reader);
                 break;
             case 2:
-                companiesDatabase.printAllCompanies();
+                printAllCompanies();
                 break;
             case 3:
-                companiesDatabase.printCompanyByName();
+                printCompanyByName(reader);
                 break;
             case 4:
-                companiesDatabase.removeCompany();
+                removeCompany(reader);
                 break;
             case 0:
                 closeProgram(reader);
@@ -53,8 +50,47 @@ public class Main {
         }
     }
 
-    private static void closeProgram(BufferedReader reader) throws Exception {
-        companiesDatabase.save();
+    private void createCompany(BufferedReader reader) throws IOException {
+        System.out.println("Enter the name: ");
+        String name=reader.readLine().toUpperCase();
+        System.out.println("Enter the url: ");
+        String url=reader.readLine();
+        System.out.println("Enter the mail: ");
+        String mail=reader.readLine();
+        Company company = new Company(name, url, mail);
+        storage.save(company);
+    }
+
+    private void printAllCompanies() {
+        for (Company company : storage.getAll()) {
+            System.out.println(company);
+        }
+    }
+
+    private void printCompanyByName(BufferedReader reader) throws NoCompanyException, IOException {
+        System.out.println("Enter the name to print: ");
+        String companyName = reader.readLine().toUpperCase();
+        Company company = storage.findByName(companyName);
+        if (company != null){
+            System.out.println(company);
+        } else {
+            throw new NoCompanyException(companyName);
+        }
+    }
+
+    private void removeCompany(BufferedReader reader) throws NoCompanyException, IOException {
+        System.out.println("Enter the name to remove Company: ");
+        String companyName = reader.readLine().toUpperCase();
+        if (storage.remove(companyName)) {
+            System.out.println("The company "+companyName+" is deleted!");
+        }
+        else {
+            throw new NoCompanyException(companyName);
+        }
+    }
+
+    private void closeProgram(BufferedReader reader) throws Exception {
+        storage.persist();
         reader.close();
         stop=true;
         System.out.println("The program is closed!");

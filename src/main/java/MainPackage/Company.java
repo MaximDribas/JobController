@@ -25,14 +25,6 @@ public class Company implements Serializable{
         return name;
     }
 
-    public String getUrl() {
-        return url;
-    }
-
-    public String getMail() {
-        return mail;
-    }
-
     public String getLastDateSimpleFormat() {
         return simpleDateFormat.format(lastDate);
     }

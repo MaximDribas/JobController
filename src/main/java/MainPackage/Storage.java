@@ -1,21 +1,20 @@
 package MainPackage;
 
-import java.io.IOException;
+import java.util.Collection;
 
 /**
  * Created by User on 28.11.2017.
  */
 public interface Storage {
 
-    void createCompany() throws IOException;
+    //Used only for map storage implementation
+    void persist();
 
-    void printAllCompanies();
+    void save(Company company);
 
-    void printCompanyByName() throws NoCompanyException, IOException;
+    Collection<Company> getAll();
 
-    void removeCompany() throws NoCompanyException, IOException;
+    Company findByName(String companyName);
 
-    void load() throws ClassNotFoundException;
-
-    void save();
+    boolean remove(String companyName);
 }
