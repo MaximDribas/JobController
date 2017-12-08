@@ -1,5 +1,9 @@
 package MainPackage;
 import java.io.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
 
 /**
  * Created by User on 22.11.2017.
@@ -10,6 +14,30 @@ public class Main {
     private boolean stop;
 
     public static void main(String[] args) throws Exception {
+        String url = "jdbc:postgresql://localhost:5432/storagedb";
+        String user = "postgres";
+        String pass = "qwer1234";
+        Connection conn = null;
+
+        Class.forName("org.postgresql.Driver");
+        conn = DriverManager.getConnection(url,user,pass);
+
+        Statement stat = conn.createStatement();
+        ResultSet result = stat.executeQuery("select * from companies");
+
+        int i = 1;
+        while (result.next()){
+            System.out.println("#"+i+" - " + result.getInt("companies_id")
+                    +" "+result.getString(2)
+                    +" "+result.getString("www")
+                    +" "+result.getString(4));
+            i++;
+        }
+
+        if (conn != null){
+            conn.close();
+        }
+
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         Main main = new Main();
         while (!main.stop) {
