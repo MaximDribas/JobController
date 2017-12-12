@@ -12,7 +12,7 @@ public class Company implements Serializable{
     private String url;
     private String mail;
     private Date lastDate;
-    private SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd.MM.YYYY");
+    private SimpleDateFormat simpleDateFormat = new SimpleDateFormat("YYYY-MM-dd");
 
     public Company(String name, String url, String mail) {
         this.name = name;
@@ -23,6 +23,18 @@ public class Company implements Serializable{
 
     public String getName() {
         return name;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public String getMail() {
+        return mail;
+    }
+
+    public Date getLastDate() {
+        return lastDate;
     }
 
     public String getLastDateSimpleFormat() {

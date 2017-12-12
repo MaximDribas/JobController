@@ -1,42 +1,44 @@
 package MainPackage;
 import java.io.*;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.Statement;
+import java.sql.*;
 
 /**
  * Created by User on 22.11.2017.
  */
 
 public class Main {
-    private Storage storage = new MapStorage();
+    private Storage storage = new PostgresStorage();
     private boolean stop;
 
+    public Main() throws SQLException {
+    }
+
     public static void main(String[] args) throws Exception {
-        String url = "jdbc:postgresql://localhost:5432/storagedb";
-        String user = "postgres";
-        String pass = "qwer1234";
-        Connection conn = null;
+        //РАБОЧИЙ КОД (PostgresStorage не работает):
+        /*try {
+            Class.forName("org.postgresql.Driver");
+            String url = "jdbc:postgresql://localhost:5432/storagedb";
+            String login = "postgres";
+            String password = "qwer1234";
+            Connection con = DriverManager.getConnection(url, login, password);
+            try {
+                Statement statement = con.createStatement();
+                ResultSet resultSet = statement.executeQuery("SELECT * FROM companies");
+                while (resultSet.next()) {
+                    String str = resultSet.getString("companies_id") + " " +
+                            resultSet.getString(2)+ " "+resultSet.getString(3)+ " "+
+                    resultSet.getString(4)+ " "+resultSet.getString(5);
+                    System.out.println(str);
+                }
+                //resultSet.close();
+                //statement.close();
+            } finally {
+                //con.close();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }*/
 
-        Class.forName("org.postgresql.Driver");
-        conn = DriverManager.getConnection(url,user,pass);
-
-        Statement stat = conn.createStatement();
-        ResultSet result = stat.executeQuery("select * from companies");
-
-        int i = 1;
-        while (result.next()){
-            System.out.println("#"+i+" - " + result.getInt("companies_id")
-                    +" "+result.getString(2)
-                    +" "+result.getString("www")
-                    +" "+result.getString(4));
-            i++;
-        }
-
-        if (conn != null){
-            conn.close();
-        }
 
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         Main main = new Main();
