@@ -9,17 +9,22 @@ import java.util.Map;
  * Created by User on 11.12.2017.
  */
 public class PostgresStorage implements Storage {
-    private Connection connection = null;
+    private final String URL = "jdbc:postgresql://localhost:5432/storagedb";
+    private final String LOGIN = "postgres";
+    private final String PASSWORD = "qwer1234";
+    private Connection connection;
 
     public PostgresStorage() throws SQLException {
         try {
             Class.forName("org.postgresql.Driver");
-            String url = "jdbc:postgresql://localhost:5432/storagedb";
-            String login = "postgres";
-            String password = "qwer1234";
-            this.connection=DriverManager.getConnection(url, login, password);
+            //Driver driver = new FabricMySQLDriver();
+            //DriverManager.registerDriver(driver);
+            connection=DriverManager.getConnection(URL, LOGIN, PASSWORD);
         } catch (Exception e) {
             e.printStackTrace();
+        }
+        if (!connection.isClosed()){
+            System.out.println("Connection is established!");
         }
     }
 
@@ -45,13 +50,12 @@ public class PostgresStorage implements Storage {
     public Collection<Company> getAll() {
         final Map<String,Company> COMPANY_MAP = new HashMap<>();
         try {
-            String s = "select * from companies";
+            String s = "select * from companies;";
             Statement stat = connection.createStatement();
             ResultSet result = stat.executeQuery(s);
             while (result.next()) {
-                COMPANY_MAP.put(result.getString("name"),
-                        new Company(result.getString(2),
-                        result.getNString(3),result.getString(4)));
+                COMPANY_MAP.put(result.getString("name"), new Company(result.getString(2),
+                        result.getString(3),result.getString(4)));
             }
         }catch (Exception e){
             e.printStackTrace();
@@ -63,12 +67,13 @@ public class PostgresStorage implements Storage {
     public Company findByName(String companyName) {
         Company company = null;
         try {
-            String s = String.format("select * from companies where name = %s", companyName);
+            String s = String.format("select * from companies where name = '%s';", companyName);
+            System.out.println(s);
             Statement stat = connection.createStatement();
             ResultSet result = stat.executeQuery(s);
             while (result.next()) {
                  company = new Company(result.getString(2),
-                        result.getNString(3),result.getString(4));
+                        result.getString(3),result.getString(4));
             }
         }catch (Exception e){
             e.printStackTrace();
@@ -79,7 +84,7 @@ public class PostgresStorage implements Storage {
     @Override
     public boolean remove(String companyName) {
         try {
-            String s = String.format("delete from companies where name = %s", companyName);
+            String s = String.format("delete from companies where name = '%s';", companyName);
             Statement stat = connection.createStatement();
             stat.executeQuery(s);
         }catch (Exception e){
@@ -87,4 +92,5 @@ public class PostgresStorage implements Storage {
         }
         return true;
     }
+
 }

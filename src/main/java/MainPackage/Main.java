@@ -14,31 +14,6 @@ public class Main {
     }
 
     public static void main(String[] args) throws Exception {
-        //РАБОЧИЙ КОД (PostgresStorage не работает):
-        /*try {
-            Class.forName("org.postgresql.Driver");
-            String url = "jdbc:postgresql://localhost:5432/storagedb";
-            String login = "postgres";
-            String password = "qwer1234";
-            Connection con = DriverManager.getConnection(url, login, password);
-            try {
-                Statement statement = con.createStatement();
-                ResultSet resultSet = statement.executeQuery("SELECT * FROM companies");
-                while (resultSet.next()) {
-                    String str = resultSet.getString("companies_id") + " " +
-                            resultSet.getString(2)+ " "+resultSet.getString(3)+ " "+
-                    resultSet.getString(4)+ " "+resultSet.getString(5);
-                    System.out.println(str);
-                }
-                //resultSet.close();
-                //statement.close();
-            } finally {
-                //con.close();
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }*/
-
 
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         Main main = new Main();
@@ -94,12 +69,13 @@ public class Main {
     private void printAllCompanies() {
         for (Company company : storage.getAll()) {
             System.out.println(company);
+            System.out.println();
         }
     }
 
     private void printCompanyByName(BufferedReader reader) throws NoCompanyException, IOException {
         System.out.println("Enter the name to print: ");
-        String companyName = reader.readLine().toUpperCase();
+        String companyName = reader.readLine();
         Company company = storage.findByName(companyName);
         if (company != null){
             System.out.println(company);
