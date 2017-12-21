@@ -7,7 +7,7 @@ import java.sql.*;
  */
 
 public class Main {
-    private Storage storage = new PostgresStorage();
+    private Storage storage = new HibernateStorage();
     private boolean stop;
 
     public Main() throws SQLException {
@@ -57,7 +57,7 @@ public class Main {
 
     private void createCompany(BufferedReader reader) throws IOException {
         System.out.println("Enter the name: ");
-        String name=reader.readLine().toUpperCase();
+        String name=reader.readLine();
         System.out.println("Enter the url: ");
         String url=reader.readLine();
         System.out.println("Enter the mail: ");
@@ -76,17 +76,21 @@ public class Main {
     private void printCompanyByName(BufferedReader reader) throws NoCompanyException, IOException {
         System.out.println("Enter the name to print: ");
         String companyName = reader.readLine();
-        Company company = storage.findByName(companyName);
+        for (Company company : storage.findByName(companyName)) {
+            System.out.println(company);
+            System.out.println();
+        }
+        /*Company company = storage.findByName(companyName);
         if (company != null){
             System.out.println(company);
         } else {
             throw new NoCompanyException(companyName);
-        }
+        }*/
     }
 
     private void removeCompany(BufferedReader reader) throws NoCompanyException, IOException {
         System.out.println("Enter the name to remove Company: ");
-        String companyName = reader.readLine().toUpperCase();
+        String companyName = reader.readLine();
         if (storage.remove(companyName)) {
             System.out.println("The company "+companyName+" is deleted!");
         }
