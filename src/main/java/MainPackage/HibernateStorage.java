@@ -1,14 +1,13 @@
 package MainPackage;
 
-import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
-import org.hibernate.criterion.Restrictions;
+import org.hibernate.query.Query;
 
+import javax.transaction.Transactional;
 import java.util.Collection;
-import java.util.List;
 
 /**
  * Created by User on 20.12.2017.
@@ -33,31 +32,26 @@ public class HibernateStorage implements Storage {
 
     @Override
     public Collection<Company> getAll() {
-        final List<Company> COMPANY_LIST;
-        Criteria criteria = session.createCriteria(Company.class);
-        COMPANY_LIST = criteria.list();
-        return COMPANY_LIST;
+        Query<Company> query = session.createQuery("FROM Company ", Company.class);
+        return query.list();
     }
 
     @Override
     public Collection<Company> findByName(String companyName) {
-        final List<Company> COMPANY_LIST;
-        Criteria criteria = session.createCriteria(Company.class);
-        criteria.add(Restrictions.eq("name",companyName));
-        COMPANY_LIST = criteria.list();
-        return COMPANY_LIST;
-    }    /*public Company findByName(String companyName) {
-        Company company = session.get(Company.class,1);
-        return company;
-    }*/
+        Query<Company> query = session.createQuery("FROM Company WHERE name =:companyName", Company.class);
+        query.setParameter("companyName", companyName);
+        return query.list();
+    }
 
     @Override
+    @Transactional
     public boolean remove(String companyName) {
-        Transaction transaction = session.beginTransaction();
-        String s = String.format("DELETE FROM companies WHERE name = '%s';", companyName);
-        session.createSQLQuery(s).executeUpdate();
-        transaction.commit();
+        Query query = session.createQuery("DELETE Company WHERE name = :companyName");
+        query.setParameter("companyName", companyName);
 
-        return true;
+        Transaction transaction = session.beginTransaction();
+        int updatedResults = query.executeUpdate();
+        transaction.commit();
+        return updatedResults > 0;
     }
 }

@@ -80,12 +80,6 @@ public class Main {
             System.out.println(company);
             System.out.println();
         }
-        /*Company company = storage.findByName(companyName);
-        if (company != null){
-            System.out.println(company);
-        } else {
-            throw new NoCompanyException(companyName);
-        }*/
     }
 
     private void removeCompany(BufferedReader reader) throws NoCompanyException, IOException {
