@@ -1,25 +1,27 @@
 package MainPackage;
+import org.springframework.stereotype.Service;
+
 import java.io.*;
 import java.sql.*;
 
-/**
- * Created by User on 22.11.2017.
- */
-
+@Service
 public class Main {
+
+    public Main(Storage storage) {
+        this.storage = storage;
+    }
+
     private Storage storage = new HibernateStorage();
     private boolean stop;
 
-    public Main() throws SQLException {
-    }
+    /*public Main() throws SQLException {
+    }*/
 
-    public static void main(String[] args) throws Exception {
-
+    public void run(String... strings)throws Exception{
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-        Main main = new Main();
-        while (!main.stop) {
+        while (!stop) {
             try {
-                main.menu(reader);
+                menu(reader);
             } catch (NoCompanyException e) {
                 System.out.println("There is no such Company - "+e.getMessage()+"! Try again!");
             } catch (Exception e) {
