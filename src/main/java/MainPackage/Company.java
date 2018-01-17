@@ -10,22 +10,22 @@ import java.util.Date;
  * Created by User on 22.11.2017.
  */
 @Entity
-@Table(name = "Companies")
+@Table(name = "companies")
 public class Company implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private int company_id;
 
-    @Column(name = "name")
-    private String name;
+    @Column(name = "company_name")
+    private String company_name;
 
-    @Column(name = "www")
-    private String url;
+    @Column(name = "company_url")
+    private String company_url;
 
-    @Column(name = "mail")
-    private String mail;
+    @Column(name = "company_mail")
+    private String company_mail;
 
-    @Column(name = "date")
+    @Column(name = "company_date")
     private Date lastDate;
 
 /*
@@ -37,22 +37,22 @@ public class Company implements Serializable{
     }
 
     public Company(String name, String url, String mail) {
-        this.name = name;
-        this.url = url;
-        this.mail = mail;
+        this.company_name = name;
+        this.company_url = url;
+        this.company_mail = mail;
         this.lastDate=new Date();
     }
 
     public String getName() {
-        return name;
+        return company_name;
     }
 
     public String getUrl() {
-        return url;
+        return company_url;
     }
 
     public String getMail() {
-        return mail;
+        return company_mail;
     }
 
     public Date getLastDate() {
@@ -67,9 +67,9 @@ public class Company implements Serializable{
 
     @Override
     public String toString() {
-        return "*** "+name+" *** information:\r\n"+
-                url+"\r\n" +
-                mail+"\r\n" +
+        return "*** "+company_name+" *** information:\r\n"+
+                company_url+"\r\n" +
+                company_mail+"\r\n" +
                 lastDate;
     }
 }

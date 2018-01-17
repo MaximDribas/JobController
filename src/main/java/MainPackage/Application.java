@@ -6,10 +6,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
 public class Application implements CommandLineRunner{
-    private final Main mainService;
+    private final CompanyService companyService;
 
-    public Application(Main mainService) {
-        this.mainService = mainService;
+    public Application(CompanyService companyService) {
+        this.companyService = companyService;
     }
 
     public static void main(String[] args) throws Exception{
@@ -18,7 +18,7 @@ public class Application implements CommandLineRunner{
     }
 
     @Override
-    public void run(String... strings) throws Exception {
-        mainService.run();
+    public void run(String... args) throws Exception {
+        companyService.run(args);
     }
 }

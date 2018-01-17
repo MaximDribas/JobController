@@ -5,7 +5,7 @@ import java.util.Collection;
 /**
  * Created by User on 28.11.2017.
  */
-public interface Storage {
+public interface IStorageDAO {
 
     //Used only for map storage implementation
     void persist();
@@ -14,7 +14,7 @@ public interface Storage {
 
     Collection<Company> getAll();
 
-    Collection<Company> findByName(String companyName);
+    Company findByName(String companyName);
 
     boolean remove(String companyName);
 }

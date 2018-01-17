@@ -1,23 +1,21 @@
 package MainPackage;
 import org.springframework.stereotype.Service;
-
 import java.io.*;
-import java.sql.*;
 
 @Service
-public class Main {
+public class CompanyService {
 
-    public Main(Storage storage) {
+    private IStorageDAO storage = new SpringStorageDAO();
+    private boolean stop;
+
+    public CompanyService(IStorageDAO storage) {
         this.storage = storage;
     }
-
-    private Storage storage = new HibernateStorage();
-    private boolean stop;
 
     /*public Main() throws SQLException {
     }*/
 
-    public void run(String... strings)throws Exception{
+    public void run(String... args)throws Exception{
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         while (!stop) {
             try {
@@ -78,10 +76,8 @@ public class Main {
     private void printCompanyByName(BufferedReader reader) throws NoCompanyException, IOException {
         System.out.println("Enter the name to print: ");
         String companyName = reader.readLine();
-        for (Company company : storage.findByName(companyName)) {
-            System.out.println(company);
+            System.out.println(storage.findByName(companyName));
             System.out.println();
-        }
     }
 
     private void removeCompany(BufferedReader reader) throws NoCompanyException, IOException {
