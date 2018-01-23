@@ -15,7 +15,7 @@ public class SpringStorageDAO implements IStorageDAO{
 
     @Override
     public void persist() {
-
+        entityManager.close();
     }
 
     @Override
@@ -31,15 +31,18 @@ public class SpringStorageDAO implements IStorageDAO{
     }
 
     @Override
-    public Company findByName(String companyName) {
-        Query query = entityManager.createQuery("FROM Company WHERE name =:companyName", Company.class);
-        query.setParameter("companyName", companyName);
-        return (Company) query.getResultList();
+    public Collection<Company> findByName(String companyName) {
+        String hql = "FROM Company WHERE company_name =:companyName";
+        return (Collection<Company>) entityManager.createQuery(hql).setParameter("companyName",companyName).getResultList();
     }
 
     @Override
     public boolean remove(String companyName) {
-        entityManager.remove(findByName(companyName));
-        return true;
+        String hql = "DELETE FROM Company WHERE company_name =:companyName";
+        int i = entityManager.createQuery(hql).setParameter("companyName",companyName).executeUpdate();
+        if (i==0)
+            return false;
+        else
+            return true;
     }
 }

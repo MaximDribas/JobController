@@ -76,8 +76,10 @@ public class CompanyService {
     private void printCompanyByName(BufferedReader reader) throws NoCompanyException, IOException {
         System.out.println("Enter the name to print: ");
         String companyName = reader.readLine();
-            System.out.println(storage.findByName(companyName));
+        for (Company company:storage.findByName(companyName)) {
+            System.out.println(company);
             System.out.println();
+        }
     }
 
     private void removeCompany(BufferedReader reader) throws NoCompanyException, IOException {

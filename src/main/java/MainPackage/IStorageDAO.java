@@ -14,7 +14,7 @@ public interface IStorageDAO {
 
     Collection<Company> getAll();
 
-    Company findByName(String companyName);
+    Collection<Company> findByName(String companyName);
 
     boolean remove(String companyName);
 }
