@@ -1,21 +1,48 @@
-package MainPackage;
+package MainPackage.service;
+import MainPackage.dao.ICompanyStorageDAO;
+import MainPackage.entity.Company;
 import org.springframework.stereotype.Service;
-import java.io.*;
+
+import java.util.Collection;
 
 @Service
-public class CompanyService {
+public class CompanyService implements ICompanyService{
 
-    private IStorageDAO storage = new SpringStorageDAO();
-    private boolean stop;
+    private ICompanyStorageDAO storageDAO;
 
-    public CompanyService(IStorageDAO storage) {
-        this.storage = storage;
+    public CompanyService(ICompanyStorageDAO storageDAO) {
+        this.storageDAO = storageDAO;
     }
 
-    /*public Main() throws SQLException {
-    }*/
+    @Override
+    public Collection<Company> getAll() {
+        return storageDAO.getAll();
+    }
 
-    public void run(String... args)throws Exception{
+    @Override
+    public Company getByName(String companyName) {
+        Company company = (Company) storageDAO.getByName(companyName);
+        return company;
+    }
+
+    @Override
+    public void post(Company company) {
+        storageDAO.post(company);
+    }
+
+    @Override
+    public void patch(Company company) {
+        storageDAO.patch(company);
+    }
+
+    @Override
+    public boolean delete(String companyName) {
+        return storageDAO.delete(companyName);
+    }
+
+
+    //private boolean stop;
+    /*public void run(String... args)throws Exception{
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         while (!stop) {
             try {
@@ -30,7 +57,7 @@ public class CompanyService {
 
     private void menu(BufferedReader reader) throws Exception {
         System.out.println();
-        System.out.println("Click: 1 - create the Company, 2 - print all Companies, 3 - print Company by name, 4 - remove Company, 0 - Exit the program");
+        System.out.println("Click: 1 - create the Company, 2 - print all Companies, 3 - print Company by name, 4 - delete Company, 0 - Exit the program");
 
         int number = Integer.parseInt(reader.readLine());
 
@@ -63,7 +90,7 @@ public class CompanyService {
         System.out.println("Enter the mail: ");
         String mail=reader.readLine();
         Company company = new Company(name, url, mail);
-        storage.save(company);
+        storage.post(company);
     }
 
     private void printAllCompanies() {
@@ -76,16 +103,16 @@ public class CompanyService {
     private void printCompanyByName(BufferedReader reader) throws NoCompanyException, IOException {
         System.out.println("Enter the name to print: ");
         String companyName = reader.readLine();
-        for (Company company:storage.findByName(companyName)) {
+        for (Company company:storage.getByName(companyName)) {
             System.out.println(company);
             System.out.println();
         }
     }
 
     private void removeCompany(BufferedReader reader) throws NoCompanyException, IOException {
-        System.out.println("Enter the name to remove Company: ");
+        System.out.println("Enter the name to delete Company: ");
         String companyName = reader.readLine();
-        if (storage.remove(companyName)) {
+        if (storage.delete(companyName)) {
             System.out.println("The company "+companyName+" is deleted!");
         }
         else {
@@ -94,9 +121,8 @@ public class CompanyService {
     }
 
     private void closeProgram(BufferedReader reader) throws Exception {
-        storage.persist();
         reader.close();
         stop=true;
         System.out.println("The program is closed!");
-    }
+    }*/
 }

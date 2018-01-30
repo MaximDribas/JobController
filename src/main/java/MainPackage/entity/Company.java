@@ -1,14 +1,10 @@
-package MainPackage;
+package MainPackage.entity;
 
 import javax.persistence.*;
 
 import java.io.Serializable;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
-/**
- * Created by User on 22.11.2017.
- */
 @Entity
 @Table(name = "companies")
 public class Company implements Serializable{
@@ -28,11 +24,6 @@ public class Company implements Serializable{
     @Column(name = "company_date")
     private Date lastDate;
 
-/*
-    @Column(name = "simpledateformat")
-    private SimpleDateFormat simpleDateFormat = new SimpleDateFormat("YYYY-MM-dd");
-*/
-
     public Company() {
     }
 
@@ -43,27 +34,45 @@ public class Company implements Serializable{
         this.lastDate=new Date();
     }
 
-    public String getName() {
+    public int getCompany_id() {
+        return company_id;
+    }
+
+    public void setCompany_id(int company_id) {
+        this.company_id = company_id;
+    }
+
+    public String getCompany_name() {
         return company_name;
     }
 
-    public String getUrl() {
+    public void setCompany_name(String company_name) {
+        this.company_name = company_name;
+    }
+
+    public String getCompany_url() {
         return company_url;
     }
 
-    public String getMail() {
+    public void setCompany_url(String company_url) {
+        this.company_url = company_url;
+    }
+
+    public String getCompany_mail() {
         return company_mail;
+    }
+
+    public void setCompany_mail(String company_mail) {
+        this.company_mail = company_mail;
     }
 
     public Date getLastDate() {
         return lastDate;
     }
 
-/*
-    public String getLastDateSimpleFormat() {
-        return simpleDateFormat.format(lastDate);
+    public void setLastDate(Date lastDate) {
+        this.lastDate = lastDate;
     }
-*/
 
     @Override
     public String toString() {

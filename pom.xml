@@ -32,7 +32,7 @@
             <url>https://repo.spring.io/milestone</url>
         </repository>
         <repository>
-            <snapshots />
+            <snapshots/>
             <id>spring-repo-snapshot</id>
             <name>spring-repo-snapshot</name>
             <url>https://repo.spring.io/snapshot</url>
@@ -49,13 +49,13 @@
         <url>https://repo.spring.io/milestone</url>
     </pluginRepository>
     <pluginRepository>
-        <snapshots />
+        <snapshots/>
         <id>spring-repo-snapshot</id>
         <name>spring-repo-snapshot</name>
         <url>https://repo.spring.io/snapshot</url>
     </pluginRepository>
     <pluginRepository>
-        <snapshots />
+        <snapshots/>
         <id>central-uk</id>
         <name>central-uk</name>
         <url>http://uk.maven.org/maven2</url>
@@ -85,6 +85,15 @@
             <artifactId>postgresql</artifactId>
             <version>42.1.4</version>
         </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-annotations</artifactId>
+        </dependency>
+
     </dependencies>
 
 </project>
