@@ -8,7 +8,7 @@ public interface ICompanyStorageDAO {
 
     Collection<Company> getAll();
 
-    Collection<Company> getByName(String companyName);
+    Company getByName(String companyName);
 
     void post(Company company);
 

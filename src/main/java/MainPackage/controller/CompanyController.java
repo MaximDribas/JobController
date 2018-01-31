@@ -17,6 +17,9 @@ public class CompanyController {
     private ICompanyService companyService;
 
     public CompanyController(ICompanyService companyService) {
+        companyService.post(new Company("point","www.point.net","order@point.net"));
+        companyService.post(new Company("epam","www.epam.net","order@epam.net"));
+        companyService.post(new Company("global","www.global.net","order@global.net"));
         this.companyService = companyService;
     }
 
@@ -30,22 +33,17 @@ public class CompanyController {
         List<Company> list = (List<Company>) companyService.getAll();
         return new ResponseEntity<List<Company>>(list, HttpStatus.OK);
     }
-    @PostMapping("company")
-    public ResponseEntity<Void> post(@RequestBody Company company, UriComponentsBuilder builder) {
-        boolean flag = companyService.post(company);
-        if (flag == false) {
-            return new ResponseEntity<Void>(HttpStatus.CONFLICT);
-        }
-        HttpHeaders headers = new HttpHeaders();
-        headers.setLocation(builder.path("/company/{id}").buildAndExpand(company.getCompany_id()).toUri());
-        return new ResponseEntity<Void>(headers, HttpStatus.CREATED);
+    @PostMapping("companyPost")
+    public ResponseEntity<Void> post(@RequestBody Company company) {
+        companyService.post(company);
+        return new ResponseEntity<Void>(HttpStatus.CREATED);
     }
-    @PutMapping("company")
+    @PutMapping("companyPut")
     public ResponseEntity<Company> patch(@RequestBody Company company) {
         companyService.patch(company);
         return new ResponseEntity<Company>(company, HttpStatus.OK);
     }
-    @DeleteMapping("company/{name}")
+    @DeleteMapping("companyDel/{name}")
     public ResponseEntity<Void> delete(@PathVariable("name") String name) {
         companyService.delete(name);
         return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);

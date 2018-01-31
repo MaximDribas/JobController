@@ -13,16 +13,6 @@ public class CompanyStorageDAO implements ICompanyStorageDAO {
     @PersistenceContext
     private EntityManager entityManager;
 
-    @Override
-    public void post(Company company) {
-        entityManager.persist(company);
-    }
-
-    @Override
-    public void patch(Company company) {
-
-    }
-
     @SuppressWarnings("unchecked")
     @Override
     public Collection<Company> getAll() {
@@ -31,9 +21,24 @@ public class CompanyStorageDAO implements ICompanyStorageDAO {
     }
 
     @Override
-    public Collection<Company> getByName(String companyName) {
+    public Company getByName(String companyName) {
         String hql = "FROM Company WHERE company_name =:companyName";
-        return (Collection<Company>) entityManager.createQuery(hql).setParameter("companyName",companyName).getResultList();
+        Company company = (Company) entityManager.createQuery(hql).setParameter("companyName",companyName).getSingleResult();
+        return company;
+    }
+
+    @Override
+    public void post(Company company) {
+        entityManager.persist(company);
+    }
+
+    @Override
+    public void patch(Company company) {
+        Company companyStorage = getByName(company.getCompany_name());
+        companyStorage.setCompany_url(company.getCompany_url());
+        companyStorage.setCompany_mail(company.getCompany_mail());
+        companyStorage.setLastDate(company.getLastDate());
+        entityManager.flush();
     }
 
     @Override

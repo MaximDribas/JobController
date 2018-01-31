@@ -21,7 +21,7 @@ public class CompanyService implements ICompanyService{
 
     @Override
     public Company getByName(String companyName) {
-        Company company = (Company) storageDAO.getByName(companyName);
+        Company company = storageDAO.getByName(companyName);
         return company;
     }
 
