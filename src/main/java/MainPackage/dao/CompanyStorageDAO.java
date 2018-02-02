@@ -16,38 +16,38 @@ public class CompanyStorageDAO implements ICompanyStorageDAO {
     @SuppressWarnings("unchecked")
     @Override
     public Collection<Company> getAll() {
-        String hql = "FROM Company as comp ORDER BY comp.company_name";
+        String hql = "FROM Company as comp ORDER BY comp.companyName";
         return (Collection<Company>)entityManager.createQuery(hql).getResultList();
     }
 
     @Override
     public Company getByName(String companyName) {
-        String hql = "FROM Company WHERE company_name =:companyName";
+        String hql = "FROM Company WHERE companyName =:companyName";
         Company company = (Company) entityManager.createQuery(hql).setParameter("companyName",companyName).getSingleResult();
         return company;
     }
 
     @Override
-    public void post(Company company) {
+    public void save(Company company) {
         entityManager.persist(company);
     }
 
     @Override
-    public void patch(Company company) {
-        Company companyStorage = getByName(company.getCompany_name());
-        companyStorage.setCompany_url(company.getCompany_url());
-        companyStorage.setCompany_mail(company.getCompany_mail());
+    public void update(Company company) {
+        Company companyStorage = getByName(company.getCompanyName());
+        companyStorage.setCompanyUrl(company.getCompanyUrl());
+        companyStorage.setCompanyMail(company.getCompanyMail());
         companyStorage.setLastDate(company.getLastDate());
         entityManager.flush();
     }
 
     @Override
     public boolean delete(String companyName) {
-        String hql = "DELETE FROM Company WHERE company_name =:companyName";
+        String hql = "DELETE FROM Company WHERE companyName =:companyName";
         int i = entityManager.createQuery(hql).setParameter("companyName",companyName).executeUpdate();
-        if (i==0)
-            return false;
-        else
+        if (i!=0)
             return true;
+        else
+            return false;
     }
 }

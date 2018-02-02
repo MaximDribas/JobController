@@ -4,9 +4,11 @@ import MainPackage.entity.Company;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @Service
-public class CompanyService implements ICompanyService{
+public class CompanyService {
 
     private ICompanyStorageDAO storageDAO;
 
@@ -14,30 +16,48 @@ public class CompanyService implements ICompanyService{
         this.storageDAO = storageDAO;
     }
 
-    @Override
     public Collection<Company> getAll() {
         return storageDAO.getAll();
     }
 
-    @Override
     public Company getByName(String companyName) {
-        Company company = storageDAO.getByName(companyName);
-        return company;
+        if (checkNameWithRegExp(companyName)) {
+            return storageDAO.getByName(companyName);
+        } else
+            return null;
     }
 
-    @Override
-    public void post(Company company) {
-        storageDAO.post(company);
+    public void save(Company company) {
+        if (checkNameWithRegExp(company.getCompanyName())&&checkUrlWithRegExp(company.getCompanyUrl())&&checkMailWithRegExp(company.getCompanyMail()))
+            storageDAO.save(company);
     }
 
-    @Override
-    public void patch(Company company) {
-        storageDAO.patch(company);
+    public void update(Company company) {
+        if (checkNameWithRegExp(company.getCompanyName())&&checkUrlWithRegExp(company.getCompanyUrl())&&checkMailWithRegExp(company.getCompanyMail()))
+            storageDAO.update(company);
     }
 
-    @Override
     public boolean delete(String companyName) {
-        return storageDAO.delete(companyName);
+        if (checkNameWithRegExp(companyName))
+            return storageDAO.delete(companyName);
+        else
+            return false;
+    }
+
+    public boolean checkNameWithRegExp(String companyName){
+        return companyName.length() >= 3 && companyName.length() <= 255;
+    }
+
+    public boolean checkMailWithRegExp(String companyMail){
+        Pattern p = Pattern.compile("^[-a-z0-9!#$%&'*+/=?^_`{|}~]+(\\.[-a-z0-9!#$%&'*+/=?^_`{|}~]+)*@([a-z0-9]([-a-z0-9]{0,61}[a-z0-9])?\\.)*(aero|arpa|asia|biz|cat|com|coop|edu|gov|info|int|jobs|mil|mobi|museum|name|net|org|pro|tel|travel|[a-z][a-z])$");
+        Matcher m = p.matcher(companyMail);
+        return m.matches();
+    }
+
+    public boolean checkUrlWithRegExp(String companyMail){
+        Pattern p = Pattern.compile("^http\\://[a-zA-Z0-9\\-\\.]+\\.[a-zA-Z]{2,3}(/\\S*)?$");
+        Matcher m = p.matcher(companyMail);
+        return m.matches();
     }
 
 

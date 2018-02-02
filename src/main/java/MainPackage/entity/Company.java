@@ -10,60 +10,60 @@ import java.util.Date;
 public class Company implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int company_id;
+    private int companyId;
 
-    @Column(name = "company_name")
-    private String company_name;
+    @Column(name = "companyName")
+    private String companyName;
 
-    @Column(name = "company_url")
-    private String company_url;
+    @Column(name = "companyUrl")
+    private String companyUrl;
 
-    @Column(name = "company_mail")
-    private String company_mail;
+    @Column(name = "companyMail")
+    private String companyMail;
 
-    @Column(name = "company_date")
+    @Column(name = "companyDate")
     private Date lastDate;
 
     public Company() {
     }
 
     public Company(String name, String url, String mail) {
-        this.company_name = name;
-        this.company_url = url;
-        this.company_mail = mail;
+        this.companyName = name;
+        this.companyUrl = url;
+        this.companyMail = mail;
         this.lastDate=new Date();
     }
 
-    public int getCompany_id() {
-        return company_id;
+    public int getCompanyId() {
+        return companyId;
     }
 
-    public void setCompany_id(int company_id) {
-        this.company_id = company_id;
+    public void setCompanyId(int companyId) {
+        this.companyId = companyId;
     }
 
-    public String getCompany_name() {
-        return company_name;
+    public String getCompanyName() {
+        return companyName;
     }
 
-    public void setCompany_name(String company_name) {
-        this.company_name = company_name;
+    public void setCompanyName(String companyName) {
+        this.companyName = companyName;
     }
 
-    public String getCompany_url() {
-        return company_url;
+    public String getCompanyUrl() {
+        return companyUrl;
     }
 
-    public void setCompany_url(String company_url) {
-        this.company_url = company_url;
+    public void setCompanyUrl(String companyUrl) {
+        this.companyUrl = companyUrl;
     }
 
-    public String getCompany_mail() {
-        return company_mail;
+    public String getCompanyMail() {
+        return companyMail;
     }
 
-    public void setCompany_mail(String company_mail) {
-        this.company_mail = company_mail;
+    public void setCompanyMail(String companyMail) {
+        this.companyMail = companyMail;
     }
 
     public Date getLastDate() {
@@ -76,9 +76,9 @@ public class Company implements Serializable{
 
     @Override
     public String toString() {
-        return "*** "+company_name+" *** information:\r\n"+
-                company_url+"\r\n" +
-                company_mail+"\r\n" +
+        return "*** "+ companyName +" *** information:\r\n"+
+                companyUrl +"\r\n" +
+                companyMail +"\r\n" +
                 lastDate;
     }
 }

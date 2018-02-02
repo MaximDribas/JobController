@@ -10,9 +10,9 @@ public interface ICompanyStorageDAO {
 
     Company getByName(String companyName);
 
-    void post(Company company);
+    void save(Company company);
 
-    void patch(Company company);
+    void update(Company company);
 
     boolean delete(String companyName);
 }

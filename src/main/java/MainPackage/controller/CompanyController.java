@@ -1,12 +1,10 @@
 package MainPackage.controller;
 
 import MainPackage.entity.Company;
-import MainPackage.service.ICompanyService;
-import org.springframework.http.HttpHeaders;
+import MainPackage.service.CompanyService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.List;
 
@@ -14,12 +12,12 @@ import java.util.List;
 @RequestMapping("user")
 public class CompanyController {
 
-    private ICompanyService companyService;
+    private CompanyService companyService;
 
-    public CompanyController(ICompanyService companyService) {
-        companyService.post(new Company("point","www.point.net","order@point.net"));
-        companyService.post(new Company("epam","www.epam.net","order@epam.net"));
-        companyService.post(new Company("global","www.global.net","order@global.net"));
+    public CompanyController(CompanyService companyService) {
+        companyService.save(new Company("point","www.point.net","order@point.net"));
+        companyService.save(new Company("epam","www.epam.net","order@epam.net"));
+        companyService.save(new Company("global","www.global.net","order@global.net"));
         this.companyService = companyService;
     }
 
@@ -28,24 +26,24 @@ public class CompanyController {
         Company company = companyService.getByName(name);
         return new ResponseEntity<Company>(company, HttpStatus.OK);
     }
-    @GetMapping("companies")
+    @GetMapping("company")
     public ResponseEntity<List<Company>> getAllCompanies() {
         List<Company> list = (List<Company>) companyService.getAll();
         return new ResponseEntity<List<Company>>(list, HttpStatus.OK);
     }
-    @PostMapping("companyPost")
+    @PostMapping("company")
     public ResponseEntity<Void> post(@RequestBody Company company) {
-        companyService.post(company);
+        companyService.save(company);
         return new ResponseEntity<Void>(HttpStatus.CREATED);
     }
-    @PutMapping("companyPut")
+    @PutMapping("company")
     public ResponseEntity<Company> patch(@RequestBody Company company) {
-        companyService.patch(company);
+        companyService.update(company);
         return new ResponseEntity<Company>(company, HttpStatus.OK);
     }
-    @DeleteMapping("companyDel/{name}")
+    @DeleteMapping("company/{name}")
     public ResponseEntity<Void> delete(@PathVariable("name") String name) {
         companyService.delete(name);
-        return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
+        return new ResponseEntity<Void>(HttpStatus.OK);
     }
 }
