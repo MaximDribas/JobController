@@ -40,26 +40,26 @@
     </repositories>
 
     <pluginRepositories>
-    <pluginRepository>
-        <snapshots>
-            <enabled>false</enabled>
-        </snapshots>
-        <id>spring-repo-milestone</id>
-        <name>spring-repo-milestone</name>
-        <url>https://repo.spring.io/milestone</url>
-    </pluginRepository>
-    <pluginRepository>
-        <snapshots/>
-        <id>spring-repo-snapshot</id>
-        <name>spring-repo-snapshot</name>
-        <url>https://repo.spring.io/snapshot</url>
-    </pluginRepository>
-    <pluginRepository>
-        <snapshots/>
-        <id>central-uk</id>
-        <name>central-uk</name>
-        <url>http://uk.maven.org/maven2</url>
-    </pluginRepository>
+        <pluginRepository>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+            <id>spring-repo-milestone</id>
+            <name>spring-repo-milestone</name>
+            <url>https://repo.spring.io/milestone</url>
+        </pluginRepository>
+        <pluginRepository>
+            <snapshots/>
+            <id>spring-repo-snapshot</id>
+            <name>spring-repo-snapshot</name>
+            <url>https://repo.spring.io/snapshot</url>
+        </pluginRepository>
+        <pluginRepository>
+            <snapshots/>
+            <id>central-uk</id>
+            <name>central-uk</name>
+            <url>http://uk.maven.org/maven2</url>
+        </pluginRepository>
     </pluginRepositories>
 
     <!--<build>
@@ -81,6 +81,10 @@
             <artifactId>spring-boot-starter-data-jpa</artifactId>
         </dependency>
         <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+        </dependency>
+        <dependency>
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
             <version>42.1.4</version>
@@ -92,18 +96,6 @@
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-annotations</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>4.12</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.hamcrest</groupId>
-            <artifactId>hamcrest-core</artifactId>
-            <version>1.3</version>
-            <scope>test</scope>
         </dependency>
 
     </dependencies>
