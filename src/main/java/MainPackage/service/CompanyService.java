@@ -58,7 +58,7 @@ public class CompanyService {
         if (companyName.length() <= MIN_COMPANY_NAME_LENGTH) {
             throw new ValidationException(
                     String.format("Company name is too short. " +
-                                    "It must be longer than %s character.)",
+                                    "It must be longer than %s character.",
                             MIN_COMPANY_NAME_LENGTH)
             );
         }

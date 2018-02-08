@@ -5,9 +5,8 @@ import MainPackage.dao.CompanyStorageDAO;
 import MainPackage.dao.ICompanyStorageDAO;
 import MainPackage.entity.Company;
 import org.junit.*;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
+import org.mockito.*;
+import org.mockito.stubbing.OngoingStubbing;
 
 import static org.mockito.Mockito.*;
 
@@ -24,6 +23,8 @@ public class CompanyServiceTest {
     @InjectMocks
     private CompanyService companyService;
 
+    @Captor
+    private ArgumentCaptor<Company> argumentCaptor;
 
     public CompanyServiceTest() {
     }
@@ -55,36 +56,69 @@ public class CompanyServiceTest {
     }
 
     @Test
+    public void shouldReturnFalse_whenNotDeleteCompany() throws Exception {
+        //given
+        String nameDoesNotExist = "nameDoesNotExist";
+
+        //when
+        when(companyStorageDAOMock.delete(nameDoesNotExist)).thenReturn(false);
+        boolean resultReturn=companyService.delete(nameDoesNotExist);
+        assertEquals(false,resultReturn);
+
+        //then
+        verify(companyStorageDAOMock).delete(nameDoesNotExist);
+
+        //Verify that false returned if the company is not in the database.
+        //Verify that companyStorageDAOMock.delete methods have been called.
+    }
+
+    @Test
+    public void shouldReturnCompany_whenNameIsCorrect() throws Exception {
+        //given
+        String name = "CorrectName";
+        Company company = new Company(name, CORRECT_URL, CORRECT_MAIL);
+        //ise Mockito 'when' method here
+        when(companyStorageDAOMock.getByName(name)).thenReturn(company);
+        //when
+        Company resultCompany = companyService.getByName(name);
+        //then
+        assertEquals(resultCompany, company);
+        //Assert that expected company equals result company;
+    }
+
+    @Test
     public void shouldSaveCompany_whenNameIsCorrect() throws Exception {
         //given
         String expectedName = "CorrectName";
         Company company = new Company(expectedName, CORRECT_URL, CORRECT_MAIL);
         //when
         companyService.save(company);
-        when(companyService.getByName(expectedName)).thenReturn(company);
         //then
-
+        verify(companyStorageDAOMock).save(argumentCaptor.capture());
+        assertEquals(company,argumentCaptor.getValue());
         //Using Mockito verify that storageDAO.save(company) method is called.
         //Using 'argument captor' you can check that company with expectedName is saved.
     }
 
-    @Test(expected = ValidationException.class)
+    @Test
     public void shouldThrowException_whenNameIsTooShort() throws Exception {
         //given
         String shortName = "n";
         Company company = new Company(shortName, CORRECT_URL, CORRECT_MAIL);
-
-
+        String expectedMessage="Company name is too short. "+
+                "It must be longer than 3 character.";
         //when
-        companyService.save(company);
-
+        try {
+            companyService.save(company);
+        } catch (ValidationException e){
+            assertEquals(expectedMessage,e.getMessage());
+        }
         //then
-
         //Verify that exception is thrown, exception message
         // should be validated as well.
     }
 
-    @Test(expected = ValidationException.class)  //I hope it is longer than 255 characters.
+    @Test
     public void shouldThrowException_whenNameIsTooLong() throws Exception {
         //given
         String longName = "Very looooooooooooooooooooooooooooooooooooooooo" +
@@ -95,10 +129,14 @@ public class CompanyServiceTest {
                 "ooooooooooooooooooooooooooooooooooooooooooooooooooooooooo" +
                 "ooooooooooooooooooooooooooooong name";
         Company company = new Company(longName, CORRECT_URL, CORRECT_MAIL);
-
+        String expectedMessage="Company name is too long. "+
+        "It must be shooter than 255 character.";
         //when
-        companyService.save(company);
-
+        try {
+            companyService.save(company);
+        } catch (ValidationException e){
+            assertEquals(expectedMessage,e.getMessage());
+        }
         //then
 
         //Verify that exception is thrown, exception message
@@ -106,32 +144,10 @@ public class CompanyServiceTest {
     }
 
     @Test(expected = ValidationException.class)
-    public void shouldThrowException_whenCompanyNameIsTooLong() throws Exception {
-        //given
-        //when
-        Company resultCompany = companyService.getByName("");
-        //then
-    }
-
-    @Test
-    public void shouldReturnCompany_whenNameIsCorrect() throws Exception {
-        //given
-        String name = "CorrectName";
-        Company company = new Company(name, CORRECT_URL, CORRECT_MAIL);
-        //ise Mockito 'when' method here
-        when(companyService.getByName(name)).thenReturn(company);
-        //when
-        Company resultCompany = companyService.getByName(name);
-        //then
-        assertEquals(resultCompany, company);
-        //Assert that expected company equals result company;
-    }
-
-    @Test(expected = ValidationException.class)
     public void shouldThrowException_whenCompanyNameIsTooShort() throws Exception {
         //given
         //when
-        Company resultCompany = companyService.getByName("");
+        companyService.getByName("");
         //then
     }
 
