@@ -1,0 +1,26 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Getting Started: Serving Web Content</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet"
+          href="../../css/main.css" th:href="@{/css/main.css}"/>
+</head>
+<body>
+<h1>All Companies list</h1>
+<table cellspacing="3" cellpadding="10" bgcolor="#D5DBDB">
+    <tr >
+        <td bgcolor="AFEEEE">Name</td>
+        <td bgcolor="AFEEEE">Id</td>
+        <td bgcolor="AFEEEE">Url</td>
+        <td bgcolor="AFEEEE">E-mail</td>
+    </tr>
+    <tr th:each="nextCompany : ${allCompaniesList}">
+        <td bgcolor="AFEEEE" th:text="${nextCompany.companyName}"></td>
+        <td bgcolor="AFEEEE" th:text="${nextCompany.companyId}"></td>
+        <td bgcolor="AFEEEE" th:text="${nextCompany.companyUrl}"></td>
+        <td bgcolor="AFEEEE" th:text="${nextCompany.companyMail}"></td>
+    </tr>
+</table>
+</body>
+</html>

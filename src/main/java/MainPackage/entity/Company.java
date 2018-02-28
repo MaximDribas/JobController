@@ -25,6 +25,7 @@ public class Company implements Serializable{
     private Date lastDate;
 
     public Company() {
+        this.lastDate=new Date();
     }
 
     public Company(String name, String url, String mail) {

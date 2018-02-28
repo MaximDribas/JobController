@@ -15,9 +15,9 @@ public class CompanyController {
     private CompanyService companyService;
 
     public CompanyController(CompanyService companyService) {
-        companyService.save(new Company("point","www.point.net","order@point.net"));
-        companyService.save(new Company("epam","www.epam.net","order@epam.net"));
-        companyService.save(new Company("global","www.global.net","order@global.net"));
+        companyService.save(new Company("point","http://point.net","order@point.net"));
+        companyService.save(new Company("epam","http://epam.net","order@epam.net"));
+        companyService.save(new Company("global","http://global.net","order@global.net"));
         this.companyService = companyService;
     }
 

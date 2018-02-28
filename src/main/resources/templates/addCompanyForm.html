@@ -1,0 +1,22 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Getting Started: Serving Web Content</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet"
+          href="../../css/main.css" th:href="@{/css/main.css}"/>
+</head>
+
+<body>
+<h1>Form to save the Company</h1>
+<form action="#" th:action="@{/thymeleafController/addCompanyResult}" th:object="${companyObject}"
+      method="post">
+    <p>Name: <input type="text" th:field="*{companyName}" /></p>
+    <p>Url: <input type="text" th:field="*{companyUrl}" /></p>
+    <p>E-mail: <input type="text" th:field="*{companyMail}" /></p>
+
+    <p><input type="submit" value="Submit" /></p>
+</form>
+</body>
+
+</html>

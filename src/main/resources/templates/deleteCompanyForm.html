@@ -1,0 +1,20 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Getting Started: Serving Web Content</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet"
+          href="../../css/main.css" th:href="@{/css/main.css}"/>
+</head>
+
+<body>
+<h1>Form to delete the Company</h1>
+<form action="#" th:action="@{/thymeleafController/deleteCompanyResult}" th:object="${companyObject}"
+      method="post">
+    <p>Name: <input type="text" th:field="*{companyName}" /></p>
+
+    <p><input type="submit" value="Submit" /></p>
+</form>
+</body>
+
+</html>
