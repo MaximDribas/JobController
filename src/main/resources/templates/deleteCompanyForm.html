@@ -8,8 +8,10 @@
 </head>
 
 <body>
+<p><a th:href="@{/index}">Home </a>> Delete Company ></p>
+
 <h1>Form to delete the Company</h1>
-<form action="#" th:action="@{/thymeleafController/deleteCompanyResult}" th:object="${companyObject}"
+<form action="#" th:action="@{/deleteCompanyResult}" th:object="${companyObject}"
       method="post">
     <p>Name: <input type="text" th:field="*{companyName}" /></p>
 

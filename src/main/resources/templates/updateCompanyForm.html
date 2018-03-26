@@ -8,8 +8,10 @@
 </head>
 
 <body>
+<p><a th:href="@{/index}">Home </a>> Update Company ></p>
+
 <h1>Form to update the Company</h1>
-<form action="#" th:action="@{/thymeleafController/updateCompanyResult}" th:object="${companyObject}"
+<form action="#" th:action="@{/updateCompanyResult}" th:object="${companyObject}"
       method="post">
     <p>Name: <input type="text" th:field="*{companyName}" /></p>
     <p>Url: <input type="text" th:field="*{companyUrl}" /></p>

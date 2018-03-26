@@ -1,10 +1,10 @@
-package MainPackage.dao;
+package com.application.dao;
 
-import MainPackage.entity.Company;
+import com.application.entity.Company;
 
 import java.util.Collection;
 
-public interface ICompanyStorageDAO {
+public interface CompanyStorage {
 
     Collection<Company> getAll();
 

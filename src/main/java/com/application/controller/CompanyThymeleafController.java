@@ -1,7 +1,7 @@
-package MainPackage.controller;
+package com.application.controller;
 
-import MainPackage.entity.Company;
-import MainPackage.service.CompanyService;
+import com.application.entity.Company;
+import com.application.service.CompanyService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -11,15 +11,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.Collection;
 
-/**
- * Created by User on 23.02.2018.
- */
 @Controller
-@RequestMapping("/thymeleafController")
-public class ThymeleafController {
+@RequestMapping()
+public class CompanyThymeleafController {
     private CompanyService companyService;
 
-    public ThymeleafController(CompanyService companyService) {
+    public CompanyThymeleafController(CompanyService companyService) {
         this.companyService = companyService;
     }
 
@@ -27,11 +24,13 @@ public class ThymeleafController {
     public String index(Model model) {
         return "index";
     }
+
     @RequestMapping("/addCompanyForm")
     public String addCompanyForm(Model model) {
         model.addAttribute("companyObject", new Company());
         return "addCompanyForm";
     }
+
     @RequestMapping(value = "/addCompanyResult", method = RequestMethod.POST)
     public String addCompanyResult(@ModelAttribute Company company, Model model) {
         companyService.save(company);
@@ -45,9 +44,10 @@ public class ThymeleafController {
         model.addAttribute("allCompaniesList",list);
         return "allCompanies";
     }
+
     @RequestMapping("/getByName")
     public String getByName(
-            @RequestParam(value="xxx", required=false, defaultValue="World")String name, Model model) {
+            @RequestParam(value="name", required=false)String name, Model model) {
         Company company = companyService.getByName(name);
         String id = String.valueOf(company.getCompanyId());
         String url = company.getCompanyUrl();
@@ -62,11 +62,13 @@ public class ThymeleafController {
 
         return "getByName";
     }
+
     @RequestMapping("/updateCompanyForm")
     public String updateCompanyForm(Model model) {
         model.addAttribute("companyObject", new Company());
         return "updateCompanyForm";
     }
+
     @RequestMapping(value = "/updateCompanyResult", method = RequestMethod.POST)
     public String updateCompanyResult(@ModelAttribute Company company, Model model) {
         companyService.update(company);
@@ -79,6 +81,7 @@ public class ThymeleafController {
         model.addAttribute("companyObject", new Company());
         return "deleteCompanyForm";
     }
+
     @RequestMapping(value = "/deleteCompanyResult", method = RequestMethod.POST)
     public String deleteCompanyResult(@ModelAttribute Company companyObject, Model model) {
         String companyName = companyObject.getCompanyName();
@@ -86,6 +89,4 @@ public class ThymeleafController {
         model.addAttribute("companyName", companyName);
         return "deleteCompanyResult";
     }
-
-
 }

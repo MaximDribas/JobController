@@ -7,14 +7,16 @@
           href="../../css/main.css" th:href="@{/css/main.css}"/>
 </head>
 <body>
-<h1>Job Controller</h1>
+<h1>Company App</h1>
     <ul>
-    <li><a th:href="@{/thymeleafController/allCompanies}">allCompanies</a></li>
-    <li><a >getByName (use: /getByName?xxx=point)</a></li>
-    <li><a th:href="@{/thymeleafController/addCompanyForm}">addCompanyForm</a></li>
-    <li><a th:href="@{/thymeleafController/updateCompanyForm}">updateCompanyForm</a></li>
-    <li><a th:href="@{/thymeleafController/deleteCompanyForm}">deleteCompanyForm</a></li>
+    <li><a th:href="@{/allCompanies}">allCompanies</a></li>
+    <li><a >getByName (use: localhost:8080/getByName?name=point)</a></li>
+    <li><a th:href="@{/addCompanyForm}">addCompanyForm</a></li>
+    <li><a th:href="@{/updateCompanyForm}">updateCompanyForm</a></li>
+    <li><a th:href="@{/deleteCompanyForm}">deleteCompanyForm</a></li>
     </ul>
-<p><img src="https://danielmiessler.com/images/exploits_of_a_mom.png" alt="Юмор программистов :)"/></p>
+<hr>
+<h2>Humor of programmers</h2>
+<p><img th:src="@{/../image/picture.png}" src="../static/image/picture.png" alt="Humor of programmers :)"/></p>
 </body>
 </html>
