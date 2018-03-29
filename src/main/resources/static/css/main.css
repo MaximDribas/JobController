@@ -1,5 +1,5 @@
 h1{
-	color:#CD5C5C;
+	color: #fd5055;
 }
 
 h2{
@@ -8,7 +8,74 @@ h2{
 
 BODY{
     font-family: Arial, Verdana, Helvetica, sans-serif;
+    /*
     font-size: 150%;
-    background: #AFEEEE;
-	color:#4682B4;
+    */
+    background: #cfeeee;
+	color: #222222;
+}
+ul.ulList  {
+    list-style: none;
+    width: 600px;
+    padding: 0;
+}
+ul.ulList li {
+    padding: 10px 30px;
+    background: linear-gradient(to left, #808080 0%, white, #808080);
+    border-bottom: 1px solid grey;
+    color: #506a6b;
+    font-size: 20px;
+    box-shadow: 0 5px 5px 0 rgba(0,0,0, .2);
+    margin-bottom: 5px;
+}
+ul.ulList li:last-child {border-bottom: none;
+}
+form {
+    background: -moz-linear-gradient(#808080, #cfeeee);
+    background: -webkit-gradient(linear, 0 0, 0 100%, from(#808080), to(#cfeeee));
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#808080', endColorstr='#cfeeee');
+    max-width: 250px;
+    height: 200px;
+    padding: 3px 7px;
+    color: #333;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    border: 1px solid #666;
+}
+form.delForm {
+    background: -moz-linear-gradient(#808080, #cfeeee);
+    background: -webkit-gradient(linear, 0 0, 0 100%, from(#808080), to(#cfeeee));
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#3c3f41', endColorstr='#cfeeee');
+    max-width: 250px;
+    height: 100px;
+    padding: 3px 7px;
+    color: #333;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    border: 1px solid #666;
+}
+input {
+    width: 200px;
+    padding: 3px 7px;
+    color: #333;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    border: 1px solid #666;
+}
+input.submitButton {
+    background: -moz-linear-gradient(#808080, #cfeeee);
+    background: -webkit-gradient(linear, 0 0, 0 100%, from(#808080), to(#cfeeee));
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#808080', endColorstr='#cfeeee');
+    width: 200px;
+
+    color: #333;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    border: 1px solid #666;
+}
+table{
 }

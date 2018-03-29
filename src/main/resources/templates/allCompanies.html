@@ -9,18 +9,18 @@
 <body>
 <p><a th:href="@{/index}">Home </a>> All Companies ></p>
 <h1>All Companies list</h1>
-<table cellspacing="3" cellpadding="10" bgcolor="#D5DBDB">
+<table cellspacing="1" cellpadding="10" bgcolor="#FFFFFF">
     <tr >
-        <td bgcolor="AFEEEE">Name</td>
-        <td bgcolor="AFEEEE">Id</td>
-        <td bgcolor="AFEEEE">Url</td>
-        <td bgcolor="AFEEEE">E-mail</td>
+        <td bgcolor="#808080">Name</td>
+        <td bgcolor="#808080">Id</td>
+        <td bgcolor="#808080">Url</td>
+        <td bgcolor="#808080">E-mail</td>
     </tr>
     <tr th:each="nextCompany : ${allCompaniesList}">
-        <td bgcolor="AFEEEE" th:text="${nextCompany.companyName}"></td>
-        <td bgcolor="AFEEEE" th:text="${nextCompany.companyId}"></td>
-        <td bgcolor="AFEEEE" th:text="${nextCompany.companyUrl}"></td>
-        <td bgcolor="AFEEEE" th:text="${nextCompany.companyMail}"></td>
+        <td bgcolor="#C0C0C0" th:text="${nextCompany.companyName}"/>
+        <td bgcolor="#C0C0C0" th:text="${nextCompany.companyId}"/>
+        <td bgcolor="#C0C0C0" th:text="${nextCompany.companyUrl}"/>
+        <td bgcolor="#C0C0C0" th:text="${nextCompany.companyMail}"/>
     </tr>
 </table>
 </body>

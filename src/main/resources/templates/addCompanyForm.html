@@ -5,6 +5,11 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <link rel="stylesheet"
           href="../../css/main.css" th:href="@{/css/main.css}"/>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,700">
+    <style>
+
+
+    </style>
 </head>
 
 <body>
@@ -13,12 +18,14 @@
 <h1>Form to save the Company</h1>
 <form action="#" th:action="@{/addCompanyResult}" th:object="${companyObject}"
       method="post">
-    <p>Name: <input type="text" th:field="*{companyName}" /></p>
-    <p>Url: <input type="text" th:field="*{companyUrl}" /></p>
-    <p>E-mail: <input type="text" th:field="*{companyMail}" /></p>
-
-    <p><input type="submit" value="Submit" /></p>
+    <div align="center">
+        <p><input id="name" type="text" th:field="*{companyName}" placeholder="Name"/></p>
+        <p><input type="text" th:field="*{companyUrl}" placeholder="Url"/></p>
+        <p><input type="text" th:field="*{companyMail}" placeholder="E-mail"/></p>
+        <p> <input class="submitButton" type="submit" value="Submit"/></p>
+    </div>
 </form>
+
 </body>
 
 </html>
