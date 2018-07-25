@@ -25,6 +25,11 @@ public class CompanyThymeleafController {
         return "index";
     }
 
+    @RequestMapping("/login")
+    public String login(Model model) {
+        return "login";
+    }
+
     @RequestMapping("/addCompanyForm")
     public String addCompanyForm(Model model) {
         model.addAttribute("companyObject", new Company());
@@ -40,14 +45,14 @@ public class CompanyThymeleafController {
 
     @RequestMapping("/allCompanies")
     public String allCompanies(Model model) {
-        Collection<Company> list=companyService.getAll();
-        model.addAttribute("allCompaniesList",list);
+        Collection<Company> list = companyService.getAll();
+        model.addAttribute("allCompaniesList", list);
         return "allCompanies";
     }
 
     @RequestMapping("/getByName")
     public String getByName(
-            @RequestParam(value="name", required=false)String name, Model model) {
+            @RequestParam(value = "name", required = false) String name, Model model) {
         Company company = companyService.getByName(name);
         String id = String.valueOf(company.getCompanyId());
         String url = company.getCompanyUrl();

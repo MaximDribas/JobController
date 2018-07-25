@@ -1,12 +1,17 @@
 package com.application.entity;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.io.Serializable;
 import java.util.Date;
 
 @Entity
 @Table(name = "companies")
-public class Company implements Serializable{
+public class Company implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int companyId;
@@ -24,14 +29,14 @@ public class Company implements Serializable{
     private Date lastDate;
 
     public Company() {
-        this.lastDate=new Date();
+        this.lastDate = new Date();
     }
 
     public Company(String name, String url, String mail) {
         this.companyName = name;
         this.companyUrl = url;
         this.companyMail = mail;
-        this.lastDate=new Date();
+        this.lastDate = new Date();
     }
 
     public int getCompanyId() {
@@ -76,9 +81,9 @@ public class Company implements Serializable{
 
     @Override
     public String toString() {
-        return "*** "+ companyName +" *** information:\r\n"+
-                companyUrl +"\r\n" +
-                companyMail +"\r\n" +
+        return "*** " + companyName + " *** information:\r\n" +
+                companyUrl + "\r\n" +
+                companyMail + "\r\n" +
                 lastDate;
     }
 }

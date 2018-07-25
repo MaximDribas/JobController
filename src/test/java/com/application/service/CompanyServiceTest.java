@@ -3,12 +3,17 @@ package com.application.service;
 import com.application.ValidationException;
 import com.application.dao.CompanyStorage;
 import com.application.entity.Company;
-import org.junit.*;
-import org.mockito.*;
+import org.junit.Before;
+import org.junit.Test;
+import org.mockito.ArgumentCaptor;
+import org.mockito.Captor;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 
-import static org.mockito.Mockito.*;
-
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 public class CompanyServiceTest {
 
@@ -37,8 +42,8 @@ public class CompanyServiceTest {
         String nameDoesNotExist = "nameDoesNotExist";
 
         when(companyStorageDAOMock.delete(nameDoesNotExist)).thenReturn(false);
-        boolean resultReturn=companyService.delete(nameDoesNotExist);
-        assertEquals(false,resultReturn);
+        boolean resultReturn = companyService.delete(nameDoesNotExist);
+        assertEquals(false, resultReturn);
 
         verify(companyStorageDAOMock).delete(nameDoesNotExist);
     }
@@ -63,20 +68,20 @@ public class CompanyServiceTest {
         companyService.save(company);
 
         verify(companyStorageDAOMock).save(argumentCaptor.capture());
-        assertEquals(company,argumentCaptor.getValue());
+        assertEquals(company, argumentCaptor.getValue());
     }
 
     @Test
     public void shouldThrowException_whenNameIsTooShort() throws Exception {
         String shortName = "n";
         Company company = new Company(shortName, CORRECT_URL, CORRECT_MAIL);
-        String expectedMessage="Company name is too short. "+
+        String expectedMessage = "Company name is too short. " +
                 "It must be longer than 3 character.";
 
         try {
             companyService.save(company);
-        } catch (ValidationException e){
-            assertEquals(expectedMessage,e.getMessage());
+        } catch (ValidationException e) {
+            assertEquals(expectedMessage, e.getMessage());
         }
     }
 
@@ -90,13 +95,13 @@ public class CompanyServiceTest {
                 "ooooooooooooooooooooooooooooooooooooooooooooooooooooooooo" +
                 "ooooooooooooooooooooooooooooong name";
         Company company = new Company(longName, CORRECT_URL, CORRECT_MAIL);
-        String expectedMessage="Company name is too long. "+
-        "It must be shooter than 255 character.";
+        String expectedMessage = "Company name is too long. " +
+                "It must be shooter than 255 character.";
 
         try {
             companyService.save(company);
-        } catch (ValidationException e){
-            assertEquals(expectedMessage,e.getMessage());
+        } catch (ValidationException e) {
+            assertEquals(expectedMessage, e.getMessage());
         }
     }
 
