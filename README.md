@@ -4,7 +4,7 @@ This is a regularly updated stable version of companies managed application. The
 This is a CRUD application with web user interface that based on Thymeleaf template engine
 (that available via a link after application started).
 The application is built according to the MVC architectural pattern and contains stored in the database Company entities.
-A client can interact with the application via UI or REST endpoints.
+A client can interact with the application via UI or REST endpoints. The application includes Security authorization, unit and integration tests.
 
 # REST Functionality:
 - Retrieve all existed in DB Companies (GET/company);
@@ -21,8 +21,9 @@ A client can interact with the application via UI or REST endpoints.
 - Java 8;
 - Hibernate;
 - Spring Boot;
+- Spring Security;
 - REST;
-- JUnit, Mockito;
+- Unit & Integration tests;
 - Thymeleaf;
 - HTML, CSS;
 - Maven;
