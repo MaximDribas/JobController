@@ -11,7 +11,7 @@
 <p><a th:href="@{/index}">Home </a>> Get Company by name ></p>
 
 <h1>Form to get the Company</h1>
-<form action="#" th:action="@{/getByNameResult}" th:object="${companyObject}"
+<form class="getForm" action="#" th:action="@{/getByNameResult}" th:object="${companyObject}"
       method="post">
     <div align="center">
         <p><input type="text" th:field="*{companyName}" placeholder="Name"/></p>

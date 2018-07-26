@@ -16,7 +16,7 @@ BODY{
 }
 ul.ulList  {
     list-style: none;
-    width: 600px;
+    width: 250px;
     padding: 0;
 }
 ul.ulList li {
@@ -36,6 +36,32 @@ form {
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#808080', endColorstr='#cfeeee');
     max-width: 250px;
     height: 200px;
+    padding: 3px 7px;
+    color: #333;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    border: 1px solid #666;
+}
+form.logForm {
+    background: -moz-linear-gradient(#808080, #cfeeee);
+    background: -webkit-gradient(linear, 0 0, 0 100%, from(#808080), to(#cfeeee));
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#3c3f41', endColorstr='#cfeeee');
+    max-width: 250px;
+    height: 150px;
+    padding: 3px 7px;
+    color: #333;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    border: 1px solid #666;
+}
+form.getForm {
+    background: -moz-linear-gradient(#808080, #cfeeee);
+    background: -webkit-gradient(linear, 0 0, 0 100%, from(#808080), to(#cfeeee));
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#3c3f41', endColorstr='#cfeeee');
+    max-width: 250px;
+    height: 100px;
     padding: 3px 7px;
     color: #333;
     -moz-border-radius: 5px;
