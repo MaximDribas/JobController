@@ -50,22 +50,18 @@ public class CompanyThymeleafController {
         return "allCompanies";
     }
 
-    @RequestMapping("/getByName")
-    public String getByName(
-            @RequestParam(value = "name", required = false) String name, Model model) {
+    @RequestMapping("/getByNameForm")
+    public String getByNameForm(Model model) {
+        model.addAttribute("companyObject", new Company());
+        return "getByNameForm";
+    }
+
+    @RequestMapping("/getByNameResult")
+    public String getByNameResult(@ModelAttribute Company companyObject, Model model) {
+        String name = companyObject.getCompanyName();
         Company company = companyService.getByName(name);
-        String id = String.valueOf(company.getCompanyId());
-        String url = company.getCompanyUrl();
-        String email = company.getCompanyMail();
-        String date = String.valueOf(company.getLastDate());
-
-        model.addAttribute("name", name);
-        model.addAttribute("id", id);
-        model.addAttribute("url", url);
-        model.addAttribute("email", email);
-        model.addAttribute("date", date);
-
-        return "getByName";
+        model.addAttribute("companyObject", company);
+        return "getByNameResult";
     }
 
     @RequestMapping("/updateCompanyForm")
